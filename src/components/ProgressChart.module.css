@@ -1,0 +1,44 @@
+.chart {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+  /* Time runs left to right inside the RTL screen. */
+  direction: ltr;
+  font-family: var(--font-body);
+}
+
+.grid line {
+  stroke: var(--color-divider);
+  stroke-width: 1;
+}
+
+.axis {
+  stroke: var(--color-navy);
+  stroke-width: 1.5;
+}
+
+.tick {
+  fill: var(--color-navy);
+  font-size: 12px;
+}
+
+.value {
+  fill: var(--color-navy);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.line {
+  fill: none;
+  stroke: var(--color-cyan);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.dot {
+  fill: var(--color-cyan);
+  stroke: var(--color-white);
+  stroke-width: 2;
+}

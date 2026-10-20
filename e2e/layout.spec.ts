@@ -99,12 +99,16 @@ for (const scenario of scenarios) {
     // Viewport shot at the bottom: what the child sees above the fixed navigation.
     await page.screenshot({ path: testInfo.outputPath('bottom.png') });
 
-    const fontsOk = await page.evaluate(
-      () =>
-        document.fonts.check('700 32px Fredoka', 'כפל') &&
-        document.fonts.check('400 18px Heebo', 'כפל'),
-    );
-    expect(fontsOk).toBe(true);
+    // WebKit may report fonts as ready before the lazily requested faces finished loading.
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            document.fonts.check('700 32px Fredoka', 'כפל') &&
+            document.fonts.check('400 18px Heebo', 'כפל'),
+        ),
+      )
+      .toBe(true);
 
     expect(external).toEqual([]);
 

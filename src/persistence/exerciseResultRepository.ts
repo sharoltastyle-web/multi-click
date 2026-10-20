@@ -1,5 +1,6 @@
 import { decideAttempt, type AttemptCommand, type ExerciseResult } from '../domain/exerciseResult';
 import { getDb, type AppDb } from './db';
+import type { Result } from './profileRepository';
 
 export type AttemptOutcome =
   | { status: 'saved' | 'duplicate' | 'alreadySolved' | 'conflict'; record: ExerciseResult }
@@ -7,7 +8,7 @@ export type AttemptOutcome =
 
 export interface ExerciseResultRepository {
   submitAttempt(command: AttemptCommand): Promise<AttemptOutcome>;
-  listResults(profileId: string): Promise<ExerciseResult[]>;
+  listResults(profileId: string): Promise<Result<ExerciseResult[]>>;
 }
 
 class MissingProfileError extends Error {}
@@ -48,7 +49,13 @@ export function createExerciseResultRepository(
     },
 
     async listResults(profileId) {
-      return db().exerciseResults.where('profileId').equals(profileId).toArray();
+      try {
+        const results = await db().exerciseResults.where('profileId').equals(profileId).toArray();
+        return { ok: true, value: results };
+      } catch (error) {
+        console.error('Failed to load exercise results', error);
+        return { ok: false, error: 'storage' };
+      }
     },
   };
 }

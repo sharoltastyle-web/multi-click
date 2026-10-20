@@ -99,7 +99,18 @@ describe('exerciseResultRepository', () => {
     const e2 = createExercise('random', 1);
     await repo.submitAttempt(command());
     await repo.submitAttempt(command({ profileId: 'p2', exercise: e2, answer: e2.factorA * e2.factorB, correct: true }));
-    expect((await repo.listResults('p1')).map((r) => r.id)).toEqual(['e1']);
-    expect((await repo.listResults('p2')).map((r) => r.id)).toEqual([e2.id]);
+    const ids = async (profileId: string) => {
+      const listed = await repo.listResults(profileId);
+      return listed.ok ? listed.value.map((r) => r.id) : null;
+    };
+    expect(await ids('p1')).toEqual(['e1']);
+    expect(await ids('p2')).toEqual([e2.id]);
+  });
+
+  it('reports a read failure instead of throwing', async () => {
+    const broken = createExerciseResultRepository(() => {
+      throw new Error('IndexedDB unavailable');
+    });
+    expect(await broken.listResults('p1')).toEqual({ ok: false, error: 'storage' });
   });
 });

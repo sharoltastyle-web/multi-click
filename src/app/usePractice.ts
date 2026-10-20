@@ -25,7 +25,13 @@ export function usePractice(
   {
     repository = exerciseResultRepository,
     random = Math.random,
-  }: { repository?: ExerciseResultRepository; random?: Random } = {},
+    onResultSaved,
+  }: {
+    repository?: ExerciseResultRepository;
+    random?: Random;
+    /** Called only after a result was actually written (never on errors or duplicates). */
+    onResultSaved?: () => void;
+  } = {},
 ) {
   const [state, dispatch] = useReducer(practiceReducer, undefined, () =>
     initialPracticeState(createExercise('random', DEFAULT_SELECTED_FACTOR, random)),
@@ -89,7 +95,8 @@ export function usePractice(
         ? { kind: 'notSaved' }
         : { kind: 'saved', revision: outcome.record.revision };
     dispatch({ type: 'checkFinished', exerciseId: exercise.id, answer, correct, result });
-  }, [profileId, repository, state]);
+    if (outcome.status === 'saved') onResultSaved?.();
+  }, [onResultSaved, profileId, repository, state]);
 
   const setAnswerText = useCallback((text: string) => {
     dispatch({ type: 'answerChanged', text });

@@ -35,3 +35,9 @@
   gap: var(--space-1);
   text-align: start;
 }
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

@@ -22,15 +22,18 @@ export function PracticePanel({
   profileId,
   repository,
   random,
+  onResultSaved,
 }: {
   profileId: string;
   repository?: ExerciseResultRepository;
   random?: Random;
+  onResultSaved?: () => void;
 }) {
   const ids = useId();
   const { state, check, setAnswerText, changeMode, changeFactor, next } = usePractice(profileId, {
     repository,
     random,
+    onResultSaved,
   });
   const { exercise, phase } = state;
   const answerRef = useRef<HTMLInputElement>(null);
