@@ -1,4 +1,4 @@
-import { useId, type InputHTMLAttributes } from 'react';
+import { useId, type InputHTMLAttributes, type Ref } from 'react';
 import styles from './TextField.module.css';
 
 export function TextField({
@@ -6,7 +6,7 @@ export function TextField({
   id,
   className,
   ...rest
-}: InputHTMLAttributes<HTMLInputElement> & { label: string }) {
+}: InputHTMLAttributes<HTMLInputElement> & { label: string; ref?: Ref<HTMLInputElement> }) {
   const autoId = useId();
   const inputId = id ?? autoId;
   return (

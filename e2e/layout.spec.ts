@@ -27,6 +27,35 @@ const scenarios: { name: string; setup: (page: Page) => Promise<void> }[] = [
       await expect(page).toHaveURL(/#\/learn$/);
     },
   },
+  {
+    name: 'learn after a wrong answer (hint)',
+    setup: async (page) => {
+      await page.goto('/#/home');
+      await createProfile(page, 'דני', 'ילד עם כובע כחול');
+      await page.getByRole('button', { name: 'ללימוד לוח הכפל' }).click();
+      await page.getByRole('radio', { name: 'תרגול לפי כפולה' }).check();
+      await page.getByLabel('כפולה', { exact: true }).selectOption('10');
+      const text = (await page.locator('form bdi[dir="ltr"]').textContent()) ?? '';
+      const [, b] = /^10×(\d+)/.exec(text)!;
+      const wrong = 10 * Number(b) === 100 ? 99 : 10 * Number(b) + 1;
+      await page.getByLabel('התשובה שלך').fill(String(wrong));
+      await page.getByRole('button', { name: 'בדיקה' }).click();
+      await expect(page.getByText('עוד ניסיון, אפשר להצליח!')).toBeVisible();
+    },
+  },
+  {
+    name: 'learn after a correct answer',
+    setup: async (page) => {
+      await page.goto('/#/home');
+      await createProfile(page, 'דני', 'ילד עם כובע כחול');
+      await page.getByRole('button', { name: 'ללימוד לוח הכפל' }).click();
+      const text = (await page.locator('form bdi[dir="ltr"]').textContent()) ?? '';
+      const [, a, b] = /^(\d+)×(\d+)/.exec(text)!;
+      await page.getByLabel('התשובה שלך').fill(String(Number(a) * Number(b)));
+      await page.getByRole('button', { name: 'בדיקה' }).click();
+      await expect(page.getByRole('button', { name: 'לתרגיל הבא' })).toBeVisible();
+    },
+  },
   { name: 'about', setup: (page) => page.goto('/#/about').then(() => undefined) },
 ];
 
@@ -67,6 +96,8 @@ for (const scenario of scenarios) {
       () => document.querySelector('nav')!.getBoundingClientRect().top,
     );
     expect(lastBottom).toBeLessThanOrEqual(navTop);
+    // Viewport shot at the bottom: what the child sees above the fixed navigation.
+    await page.screenshot({ path: testInfo.outputPath('bottom.png') });
 
     const fontsOk = await page.evaluate(
       () =>

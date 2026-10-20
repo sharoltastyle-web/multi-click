@@ -1,10 +1,12 @@
 import Dexie, { type EntityTable } from 'dexie';
+import type { ExerciseResult } from '../domain/exerciseResult';
 import type { Profile } from '../domain/profile';
 
 export const DB_NAME = 'kefel-bekef-db';
 
 export type AppDb = Dexie & {
   profiles: EntityTable<Profile, 'id'>;
+  exerciseResults: EntityTable<ExerciseResult, 'id'>;
 };
 
 /**
@@ -17,6 +19,11 @@ export function createDb(name = DB_NAME): AppDb {
   const db = new Dexie(name) as AppDb;
   db.version(1).stores({
     profiles: 'id',
+  });
+  // Milestone 3: additive table for checked exercises; no data conversion needed.
+  db.version(2).stores({
+    profiles: 'id',
+    exerciseResults: 'id, profileId, [profileId+firstCheckLocalDate]',
   });
   // Let a newer tab upgrade the schema instead of being blocked by this connection.
   db.on('versionchange', () => {

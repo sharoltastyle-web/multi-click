@@ -7,7 +7,7 @@ import { LearnScreen } from './LearnScreen';
 const profile: Profile = { id: 'p1', nickname: 'דני', avatarId: 'avatar-1', createdAt: 1 };
 
 describe('LearnScreen', () => {
-  it('shows the active profile and the progress heading without fake data', () => {
+  it('shows the active profile, practice and the progress heading without fake data', () => {
     const { container } = render(
       <ActiveProfileProvider initialProfile={profile}>
         <LearnScreen />
@@ -16,6 +16,7 @@ describe('LearnScreen', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'לוח הכפל' })).toBeInTheDocument();
     expect(screen.getByText('דני')).toBeInTheDocument();
     expect(container.querySelector('img[src*="avatar-1"]')).not.toBeNull();
+    expect(screen.getByRole('button', { name: 'בדיקה' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'ההתקדמות שלי' })).toBeInTheDocument();
     expect(container.textContent).not.toMatch(/%/);
   });

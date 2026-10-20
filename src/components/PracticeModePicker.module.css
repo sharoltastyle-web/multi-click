@@ -1,0 +1,99 @@
+.picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  font-size: var(--font-size-body);
+  cursor: pointer;
+}
+
+/* Round radio with a navy outline; selected = cyan fill with a dark center */
+.radio {
+  appearance: none;
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 28px;
+  block-size: 28px;
+  margin: 0;
+  border: var(--border-thin) solid var(--color-navy);
+  border-radius: 50%;
+  background: var(--color-white);
+  cursor: pointer;
+}
+
+.radio::after {
+  content: '';
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.radio:checked {
+  background: var(--color-cyan);
+}
+
+.radio:checked::after {
+  background: var(--color-navy);
+}
+
+.picker:disabled .option {
+  cursor: not-allowed;
+}
+
+.factorColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.factorField {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding-inline-start: 36px;
+}
+
+.factorLabel {
+  font-size: 16px;
+}
+
+.select {
+  min-inline-size: 96px;
+  min-height: var(--touch-min);
+  padding-block: 0;
+  padding-inline: var(--space-2) 40px;
+  border: var(--border-thin) solid var(--color-navy);
+  border-radius: var(--radius-md);
+  appearance: none;
+  /* Chevron at the end (left in RTL) */
+  background: var(--color-white)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23081b52' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat left 12px center / 18px;
+  color: var(--color-navy);
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.select:disabled {
+  border-color: var(--color-disabled-text);
+  background-color: var(--color-disabled-surface);
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+  opacity: 1;
+}

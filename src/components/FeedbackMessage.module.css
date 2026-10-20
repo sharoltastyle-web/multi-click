@@ -1,0 +1,54 @@
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  padding: 12px var(--space-2);
+  border-radius: var(--radius-md);
+  text-align: start;
+}
+
+.success {
+  background: var(--color-lime-light);
+}
+
+.retry {
+  background: var(--color-sunshine-light);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  font-weight: 700;
+}
+
+.icon {
+  flex: none;
+  inline-size: 28px;
+  block-size: 28px;
+}
+
+.iconSuccess {
+  fill: var(--color-lime);
+  stroke: var(--color-navy);
+  stroke-width: 1.5;
+}
+
+.iconRetry {
+  fill: var(--color-sunshine);
+  stroke: var(--color-navy);
+  stroke-width: 1.5;
+}
+
+.iconMark {
+  fill: none;
+  stroke: var(--color-navy);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.iconDot {
+  fill: var(--color-navy);
+}

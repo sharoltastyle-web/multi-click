@@ -16,6 +16,8 @@
   --color-disabled-surface: color-mix(in srgb, var(--color-navy) 10%, var(--color-white));
   --color-disabled-text: color-mix(in srgb, var(--color-navy) 45%, var(--color-white));
   --color-divider: color-mix(in srgb, var(--color-navy) 15%, var(--color-white));
+  --color-lime-light: color-mix(in srgb, var(--color-lime) 55%, var(--color-white));
+  --color-sunshine-light: color-mix(in srgb, var(--color-sunshine) 30%, var(--color-white));
 
   /* Typography */
   --font-display: 'Fredoka', 'Heebo', sans-serif;

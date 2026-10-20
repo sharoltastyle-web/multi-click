@@ -1,9 +1,10 @@
 import { useActiveProfile } from '../app/ActiveProfileContext';
 import { Avatar } from '../components/Avatar';
+import { PracticePanel } from '../components/PracticePanel';
 import { ScreenHeader } from '../components/ScreenHeader';
 import styles from './Screen.module.css';
 
-// Practice is added in Milestone 3 and the progress chart in Milestone 4.
+// The progress chart and daily summary are added in Milestone 4.
 export function LearnScreen() {
   const { activeProfile } = useActiveProfile();
   return (
@@ -16,6 +17,8 @@ export function LearnScreen() {
           </p>
         )}
       </ScreenHeader>
+      {/* Keyed by profile id: switching profiles discards the in-memory exercise. */}
+      {activeProfile && <PracticePanel key={activeProfile.id} profileId={activeProfile.id} />}
       <hr className={styles.divider} />
       <section aria-labelledby="progress-title">
         <h2 id="progress-title" className={styles.sectionTitle}>
