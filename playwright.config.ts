@@ -28,6 +28,6 @@ export default defineConfig({
   projects: [
     { name: 'chromium-mobile', use: { ...devices['Pixel 7'] } },
     // Playwright supports service workers in Chromium only; PWA tests are skipped in WebKit.
-    { name: 'webkit-mobile', use: { ...devices['iPhone 13'] }, testIgnore: /pwa.spec.ts/ },
+    { name: 'webkit-mobile', use: { ...devices['iPhone 13'] }, testIgnore: [/pwa\.spec\.ts/, /public-smoke\.spec\.ts/] },
   ],
 });

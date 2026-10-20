@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { createProfile } from './support/profiles';
 
 interface StoredResult {
   id: string;
@@ -21,13 +22,6 @@ const retry = (page: Page) => page.getByText('עוד ניסיון, אפשר לה
 const invalid = (page: Page) => page.getByText('יש להקליד מספר שלם בין 1 ל־100');
 const profileCards = (page: Page) =>
   page.getByRole('region', { name: 'בחירת פרופיל' }).getByRole('button');
-
-async function createProfile(page: Page, nickname: string, avatarAlt: string) {
-  await page.getByLabel('כינוי').fill(nickname);
-  await page.getByRole('img', { name: avatarAlt }).click();
-  await page.getByRole('button', { name: 'יצירת פרופיל' }).click();
-  await expect(page.getByLabel('כינוי')).toHaveValue('');
-}
 
 async function startLearning(page: Page, nickname = 'דני') {
   await page.goto('#/home');

@@ -1,4 +1,5 @@
 import { expect, test, type BrowserContext, type Page } from '@playwright/test';
+import { createProfile, openNewProfileForm } from './support/profiles';
 import { BASE } from '../app-base';
 import { PWA_BUILDS_DIR } from './support/buildVersions';
 import { TestServer } from './support/staticServer';
@@ -35,13 +36,6 @@ async function openPrepared(page: Page) {
 async function goOffline(context: BrowserContext) {
   await server.stop();
   await context.setOffline(true);
-}
-
-async function createProfile(page: Page, nickname: string) {
-  await page.getByLabel('כינוי').fill(nickname);
-  await page.getByRole('img', { name: 'ילד עם כובע כחול' }).click();
-  await page.getByRole('button', { name: 'יצירת פרופיל' }).click();
-  await expect(page.getByLabel('כינוי')).toHaveValue('');
 }
 
 async function product(page: Page) {
@@ -250,6 +244,7 @@ test('a storage failure inside the installed app deletes nothing', async ({ page
   });
   await goOffline(context);
   await broken.goto(`${server.url}#/home`);
+  await openNewProfileForm(broken);
   await broken.getByLabel('כינוי').fill('נועה');
   await broken.getByRole('img', { name: 'ילד עם כובע כחול' }).click();
   await broken.getByRole('button', { name: 'יצירת פרופיל' }).click();

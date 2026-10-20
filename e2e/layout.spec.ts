@@ -1,11 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-
-async function createProfile(page: Page, nickname: string, avatarAlt: string) {
-  await page.getByLabel('כינוי').fill(nickname);
-  await page.getByRole('img', { name: avatarAlt }).click();
-  await page.getByRole('button', { name: 'יצירת פרופיל' }).click();
-  await expect(page.getByLabel('כינוי')).toHaveValue('');
-}
+import { createProfile } from './support/profiles';
 
 const scenarios: { name: string; setup: (page: Page) => Promise<void> }[] = [
   { name: 'home without profiles', setup: (page) => page.goto('#/home').then(() => undefined) },

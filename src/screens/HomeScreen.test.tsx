@@ -60,7 +60,19 @@ describe('HomeScreen', () => {
     const [saved] = await getDb().profiles.toArray();
     expect(saved).toMatchObject({ nickname: 'נועה', avatarId: 'avatar-2' });
     expect(screen.getByTestId('active')).toHaveTextContent(saved!.id);
-    expect(screen.getByLabelText('כינוי')).toHaveValue('');
+    // The form folds after creation.
+    expect(screen.queryByLabelText('כינוי')).toBeNull();
+    expect(screen.getByRole('button', { name: 'פרופיל חדש' })).toBeInTheDocument();
+  });
+
+  it('folds the form when profiles exist and opens it on request', async () => {
+    await getDb().profiles.add({ id: 'a', nickname: 'נועה', avatarId: 'avatar-2', createdAt: 1 });
+    renderHome();
+    const open = await screen.findByRole('button', { name: 'פרופיל חדש' });
+    expect(screen.queryByLabelText('כינוי')).toBeNull();
+    fireEvent.click(open);
+    expect(screen.getByLabelText('כינוי')).toHaveFocus();
+    expect(screen.queryByRole('button', { name: 'פרופיל חדש' })).toBeNull();
   });
 
   it('creates only one profile on a fast double click', async () => {

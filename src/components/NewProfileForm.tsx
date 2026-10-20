@@ -13,9 +13,12 @@ export const SAVE_FAILED = 'לא הצלחנו לשמור את הפרופיל ב�
 export function NewProfileForm({
   onCreate,
   onCreated,
+  autoFocus = false,
 }: {
   onCreate: (input: { nickname: string; avatarId: AvatarId }) => Promise<Result<Profile>>;
   onCreated: (profile: Profile) => void;
+  /** Focus the nickname field on mount (when the form was opened on request). */
+  autoFocus?: boolean;
 }) {
   const ids = useId();
   const [nickname, setNickname] = useState('');
@@ -66,6 +69,7 @@ export function NewProfileForm({
           value={nickname}
           maxLength={NICKNAME_MAX_LENGTH}
           autoComplete="off"
+          autoFocus={autoFocus}
           onChange={(e) => setNickname(e.target.value)}
           aria-invalid={errors.nickname ? true : undefined}
           aria-describedby={errors.nickname ? nicknameErrorId : undefined}

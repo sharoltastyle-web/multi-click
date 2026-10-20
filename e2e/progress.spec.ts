@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { createProfile } from './support/profiles';
 
 interface SeedDay {
   date: string;
@@ -18,13 +19,6 @@ const nav = (page: Page, name: string) =>
   page.getByRole('navigation').getByRole('link', { name });
 const profileCards = (page: Page) =>
   page.getByRole('region', { name: 'בחירת פרופיל' }).getByRole('button');
-
-async function createProfile(page: Page, nickname: string, avatarAlt = 'ילד עם כובע כחול') {
-  await page.getByLabel('כינוי').fill(nickname);
-  await page.getByRole('img', { name: avatarAlt }).click();
-  await page.getByRole('button', { name: 'יצירת פרופיל' }).click();
-  await expect(page.getByLabel('כינוי')).toHaveValue('');
-}
 
 async function startLearning(page: Page, nickname = 'דני') {
   await page.goto('#/home');

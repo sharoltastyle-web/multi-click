@@ -17,6 +17,8 @@ export function HomeScreen() {
   const { activeProfile, selectProfile } = useActiveProfile();
   const { status, profiles, createProfile } = useProfiles();
   const [showSelectHint, setShowSelectHint] = useState(false);
+  // With existing profiles the new-profile form stays folded until asked for.
+  const [formOpen, setFormOpen] = useState(false);
 
   function goToLearn() {
     if (activeProfile) {
@@ -30,6 +32,13 @@ export function HomeScreen() {
     selectProfile(profile);
     setShowSelectHint(false);
   }
+
+  function handleCreated(profile: Profile) {
+    handleSelect(profile);
+    setFormOpen(false);
+  }
+
+  const hasProfiles = status === 'ready' && profiles.length > 0;
 
   return (
     <div className={styles.screen}>
@@ -52,7 +61,7 @@ export function HomeScreen() {
         </p>
       )}
 
-      {status === 'ready' && profiles.length > 0 && (
+      {hasProfiles && (
         <section aria-labelledby="choose-profile-title" className={styles.section}>
           <h2 id="choose-profile-title" className={styles.sectionTitle}>
             בחירת פרופיל
@@ -71,7 +80,15 @@ export function HomeScreen() {
         </section>
       )}
 
-      {status !== 'loading' && <NewProfileForm onCreate={createProfile} onCreated={handleSelect} />}
+      {status !== 'loading' &&
+        (!hasProfiles || formOpen ? (
+          <NewProfileForm onCreate={createProfile} onCreated={handleCreated} autoFocus={formOpen} />
+        ) : (
+          <button type="button" className={styles.newProfileToggle} onClick={() => setFormOpen(true)}>
+            <span aria-hidden="true">+</span>
+            <span>פרופיל חדש</span>
+          </button>
+        ))}
 
       <div className={styles.section}>
         <Button variant="primary" onClick={goToLearn}>

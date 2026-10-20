@@ -47,6 +47,24 @@
   gap: var(--space-2);
 }
 
+/* Folded new-profile form: a light dashed button, quieter than the main actions */
+.newProfileToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-block-size: 56px;
+  padding: var(--space-2);
+  border: var(--border-thin) dashed var(--color-navy);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-navy);
+  font: inherit;
+  font-weight: 700;
+  font-size: var(--font-size-subheading);
+  cursor: pointer;
+}
+
 .notice {
   padding: var(--space-2);
   border: var(--border-thin) solid var(--color-navy);

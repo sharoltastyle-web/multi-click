@@ -1,15 +1,9 @@
 import { expect, test, type Page } from '@playwright/test';
+import { createProfile } from './support/profiles';
 
 const learnButton = (page: Page) => page.getByRole('button', { name: 'ללימוד לוח הכפל' });
 const profileCards = (page: Page) =>
   page.getByRole('region', { name: 'בחירת פרופיל' }).getByRole('button');
-
-async function createProfile(page: Page, nickname: string, avatarAlt: string) {
-  await page.getByLabel('כינוי').fill(nickname);
-  await page.getByRole('img', { name: avatarAlt }).click();
-  await page.getByRole('button', { name: 'יצירת פרופיל' }).click();
-  await expect(page.getByLabel('כינוי')).toHaveValue('');
-}
 
 test('empty database shows only the form, and learn asks to choose a profile', async ({ page }) => {
   await page.goto('#/home');
