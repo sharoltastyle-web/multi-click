@@ -30,7 +30,7 @@ async function createProfile(page: Page, nickname: string, avatarAlt: string) {
 }
 
 async function startLearning(page: Page, nickname = 'דני') {
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await createProfile(page, nickname, 'ילד עם כובע כחול');
   await page.getByRole('button', { name: 'ללימוד לוח הכפל' }).click();
   await expect(page).toHaveURL(/#\/learn$/);
@@ -187,7 +187,7 @@ test('selected-factor mode fixes the factor; switching mode keeps saved results'
 });
 
 test('results stay with the profile that checked them, also after a refresh', async ({ page }) => {
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await createProfile(page, 'נועה', 'ילדה עם שיער חום');
   await createProfile(page, 'נועה', 'ילד עם רקע ירוק');
 
@@ -268,7 +268,7 @@ test('a Milestone 2 database is upgraded in the browser without losing profiles'
     };
     request.onsuccess = () => request.result.close();
   });
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await expect(profileCards(page)).toHaveText(['מיכל', 'יואב']);
 
   await profileCards(page).nth(1).click();

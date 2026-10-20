@@ -13,5 +13,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["vite.config.ts", "playwright.config.ts", "e2e"]
+  "include": ["app-base.ts", "vite.config.ts", "playwright.config.ts", "playwright.smoke.config.ts", "e2e"]
 }

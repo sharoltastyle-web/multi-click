@@ -1,8 +1,9 @@
 import { expect, test, type BrowserContext, type Page } from '@playwright/test';
+import { BASE } from '../app-base';
 import { PWA_BUILDS_DIR } from './support/buildVersions';
 import { TestServer } from './support/staticServer';
 
-// Service workers are only supported by Playwright in Chromium; Safari on a real iPhone is checked in M6.
+// Service workers are only supported by Playwright in Chromium; Safari is checked on a real iPhone.
 test.skip(({ browserName }) => browserName !== 'chromium', 'Service workers: Chromium only');
 
 const READY = 'האפליקציה מוכנה לשימוש גם בלי אינטרנט';
@@ -86,9 +87,9 @@ test('manifest, icons and service worker scope are valid', async ({ page, reques
     lang: 'he',
     dir: 'rtl',
     display: 'standalone',
-    start_url: '/',
-    scope: '/',
-    id: '/',
+    start_url: BASE,
+    scope: BASE,
+    id: BASE,
   });
   const purposes = manifest.icons.map((i: { sizes: string; purpose: string }) => `${i.sizes} ${i.purpose}`);
   expect(purposes).toEqual(['192x192 any', '512x512 any', '512x512 maskable']);

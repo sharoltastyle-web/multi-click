@@ -27,7 +27,7 @@ async function createProfile(page: Page, nickname: string, avatarAlt = 'ילד �
 }
 
 async function startLearning(page: Page, nickname = 'דני') {
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await createProfile(page, nickname);
   await page.getByRole('button', { name: 'ללימוד לוח הכפל' }).click();
   await expect(page).toHaveURL(/#\/learn$/);
@@ -236,7 +236,7 @@ test('a different time zone keeps the stored local day', async ({ browser, baseU
 });
 
 test('profiles do not share progress, and the same progress returns after a reload', async ({ page }) => {
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await createProfile(page, 'נועה', 'ילדה עם שיער חום');
   await createProfile(page, 'יואב', 'ילד עם רקע ירוק');
 

@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { createServer, type Server } from 'node:http';
 import { extname, join, normalize } from 'node:path';
+import { BASE } from '../../app-base';
 
 const TYPES: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -25,7 +26,7 @@ export class TestServer {
   constructor(private root: string) {}
 
   get url() {
-    return `http://localhost:${this.port}/`;
+    return `http://localhost:${this.port}${BASE}`;
   }
 
   serve(root: string) {
@@ -35,7 +36,13 @@ export class TestServer {
   async start() {
     this.server = createServer(async (req, res) => {
       const path = new URL(req.url ?? '/', 'http://localhost').pathname;
-      const file = path === '/' ? '/index.html' : path;
+      // Like GitHub Project Pages: only paths under BASE exist.
+      if (!path.startsWith(BASE)) {
+        res.writeHead(404).end();
+        return;
+      }
+      const rel = path.slice(BASE.length - 1);
+      const file = rel === '/' ? '/index.html' : rel;
       if ([...this.failing].some((f) => file.includes(f))) {
         res.writeHead(500).end();
         return;

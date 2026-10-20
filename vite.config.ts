@@ -2,10 +2,8 @@
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
-
-// Base path of the site. Stays '/' until GitHub Pages is configured (M6);
-// the manifest start_url, scope and id all follow it.
-const BASE = '/';
+// Base path of the site; the manifest start_url, scope and id all follow it.
+import { BASE } from './app-base';
 
 // Public build identifier (not a secret). A different value changes index.html,
 // which produces a new service worker version.

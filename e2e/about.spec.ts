@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('about shows the full multiplication table, the text and local images', async ({ page }) => {
-  await page.goto('/#/about');
+  await page.goto('#/about');
   const table = page.getByRole('table', { name: 'לוח הכפל 1–10' });
   await expect(table).toBeVisible();
 
@@ -35,7 +35,7 @@ test('about shows the full multiplication table, the text and local images', asy
 test('about recommends adding the app to the iPhone home screen, right-aligned and not clipped', async ({
   page,
 }) => {
-  await page.goto('/#/about');
+  await page.goto('#/about');
   const line = page.getByText(
     'באייפון מומלץ להוסיף את האפליקציה למסך הבית, כדי שהתוצאות יישמרו לאורך זמן.',
     { exact: true },

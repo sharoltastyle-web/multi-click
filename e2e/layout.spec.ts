@@ -8,11 +8,11 @@ async function createProfile(page: Page, nickname: string, avatarAlt: string) {
 }
 
 const scenarios: { name: string; setup: (page: Page) => Promise<void> }[] = [
-  { name: 'home without profiles', setup: (page) => page.goto('/#/home').then(() => undefined) },
+  { name: 'home without profiles', setup: (page) => page.goto('#/home').then(() => undefined) },
   {
     name: 'home with three profiles',
     setup: async (page) => {
-      await page.goto('/#/home');
+      await page.goto('#/home');
       await createProfile(page, 'נועה', 'ילדה עם שיער חום');
       await createProfile(page, 'דני', 'ילד עם כובע כחול');
       await createProfile(page, 'כינוי ארוך מאוד לבדיקה', 'ילד עם רקע ירוק');
@@ -21,7 +21,7 @@ const scenarios: { name: string; setup: (page: Page) => Promise<void> }[] = [
   {
     name: 'learn with an active profile',
     setup: async (page) => {
-      await page.goto('/#/home');
+      await page.goto('#/home');
       await createProfile(page, 'דני', 'ילד עם כובע כחול');
       await page.getByRole('button', { name: 'ללימוד לוח הכפל' }).click();
       await expect(page).toHaveURL(/#\/learn$/);
@@ -30,7 +30,7 @@ const scenarios: { name: string; setup: (page: Page) => Promise<void> }[] = [
   {
     name: 'learn after a wrong answer (hint)',
     setup: async (page) => {
-      await page.goto('/#/home');
+      await page.goto('#/home');
       await createProfile(page, 'דני', 'ילד עם כובע כחול');
       await page.getByRole('button', { name: 'ללימוד לוח הכפל' }).click();
       await page.getByRole('radio', { name: 'תרגול לפי כפולה' }).check();
@@ -46,7 +46,7 @@ const scenarios: { name: string; setup: (page: Page) => Promise<void> }[] = [
   {
     name: 'learn after a correct answer',
     setup: async (page) => {
-      await page.goto('/#/home');
+      await page.goto('#/home');
       await createProfile(page, 'דני', 'ילד עם כובע כחול');
       await page.getByRole('button', { name: 'ללימוד לוח הכפל' }).click();
       const text = (await page.locator('form bdi[dir="ltr"]').textContent()) ?? '';
@@ -56,7 +56,7 @@ const scenarios: { name: string; setup: (page: Page) => Promise<void> }[] = [
       await expect(page.getByRole('button', { name: 'לתרגיל הבא' })).toBeVisible();
     },
   },
-  { name: 'about', setup: (page) => page.goto('/#/about').then(() => undefined) },
+  { name: 'about', setup: (page) => page.goto('#/about').then(() => undefined) },
 ];
 
 for (const scenario of scenarios) {

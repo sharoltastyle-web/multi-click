@@ -12,7 +12,7 @@ async function createProfile(page: Page, nickname: string, avatarAlt: string) {
 }
 
 test('empty database shows only the form, and learn asks to choose a profile', async ({ page }) => {
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await expect(page.getByRole('heading', { name: 'פרופיל חדש' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'בחירת פרופיל' })).toHaveCount(0);
 
@@ -22,7 +22,7 @@ test('empty database shows only the form, and learn asks to choose a profile', a
 });
 
 test('incomplete input does not create a profile', async ({ page }) => {
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await page.getByRole('button', { name: 'יצירת פרופיל' }).click();
   await expect(page.getByText('יש להקליד כינוי')).toBeVisible();
   await expect(page.getByText('יש לבחור אווטאר')).toBeVisible();
@@ -40,7 +40,7 @@ test('profiles persist, duplicate nicknames stay separate, and learn shows the c
   page,
   context,
 }) => {
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await createProfile(page, 'נועה', 'ילדה עם שיער חום');
   await createProfile(page, 'נועה', 'ילד עם רקע ירוק');
   await createProfile(page, 'דני', 'ילד עם כובע כחול');
@@ -55,7 +55,7 @@ test('profiles persist, duplicate nicknames stay separate, and learn shows the c
   // A new page in the same browser profile (like closing and reopening the app) sees the same data.
   await page.close();
   const reopened = await context.newPage();
-  await reopened.goto('/#/home');
+  await reopened.goto('#/home');
   await expect(profileCards(reopened)).toHaveText(['נועה', 'נועה', 'דני']);
 
   // Choose the second "נועה" (green avatar) and enter learn.
@@ -81,7 +81,7 @@ test('profiles persist, duplicate nicknames stay separate, and learn shows the c
 });
 
 test('fast double click creates a single profile', async ({ page }) => {
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await page.getByLabel('כינוי').fill('דני');
   await page.getByRole('img', { name: 'ילד עם כובע כחול' }).click();
   await page.getByRole('button', { name: 'יצירת פרופיל' }).dblclick();
@@ -96,7 +96,7 @@ test('IndexedDB failure is shown clearly and never as a successful creation', as
       throw new DOMException('Storage disabled', 'UnknownError');
     };
   });
-  await page.goto('/#/home');
+  await page.goto('#/home');
   await expect(page.getByText('לא ניתן לשמור פרופילים במכשיר הזה כרגע.')).toBeVisible();
 
   await page.getByLabel('כינוי').fill('דני');
