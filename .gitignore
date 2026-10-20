@@ -80,3 +80,6 @@ desktop.ini
 tmp/
 temp/
 *.tmp
+
+# --- PWA test builds ---
+.pwa-builds/

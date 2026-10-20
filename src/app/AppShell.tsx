@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { BottomNav } from '../components/BottomNav';
+import { PwaBanner } from '../components/PwaBanner';
+import { usePwaStatus } from '../pwa/usePwaStatus';
 import { AboutScreen } from '../screens/AboutScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { LearnScreen } from '../screens/LearnScreen';
@@ -10,6 +12,7 @@ import styles from './AppShell.module.css';
 export function AppShell() {
   const { activeProfile } = useActiveProfile();
   const route = useHashRoute(activeProfile !== null);
+  const pwaDisplay = usePwaStatus();
   const mainRef = useRef<HTMLElement>(null);
   const isFirstRender = useRef(true);
 
@@ -25,6 +28,7 @@ export function AppShell() {
 
   return (
     <div className={styles.shell}>
+      <PwaBanner display={pwaDisplay} />
       <main ref={mainRef} className={styles.main}>
         {route === 'home' && <HomeScreen />}
         {route === 'learn' && <LearnScreen />}

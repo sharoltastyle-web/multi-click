@@ -57,6 +57,7 @@
 
 ## פקודות הרצה
 > Claude ממלא זאת ברגע שהאפליקציה יכולה לרוץ (בדרך כלל בסיום Milestone 1), ומעדכן אם משהו משתנה.
-- **הרצה (dev):** `npm run dev` (נפתח ב-http://localhost:5173)
-- **בדיקות (test):** `npm test` (יחידה), `npm run test:e2e` (דפדפן, על Production Build), `npm run check` (הכול: TypeScript, בדיקות, Build)
-- **כיווץ איורים:** `npm run images` (אחרי החלפת קובץ ב-`assets/`)
+- **הרצה (dev):** `npm run dev` (נפתח ב-http://localhost:5173; בלי Service Worker)
+- **הרצת Production Build (עם PWA/Offline):** `npm run build` ואז `npm run preview -- --port 4174` (נפתח ב-http://localhost:4174)
+- **בדיקות (test):** `npm test` (יחידה), `npm run test:e2e` (דפדפן, על Production Build; בונה גם שתי גרסאות לבדיקות ה-PWA), `npm run check` (הכול: TypeScript, בדיקות, Build)
+- **כיווץ איורים ויצירת אייקונים:** `npm run images` (אחרי החלפת קובץ ב-`assets/`)

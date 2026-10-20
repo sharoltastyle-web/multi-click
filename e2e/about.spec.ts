@@ -31,3 +31,31 @@ test('about shows the full multiplication table, the text and local images', asy
   await page.getByRole('link', { name: 'חזרה לבית' }).click();
   await expect(page).toHaveURL(/#\/home$/);
 });
+
+test('about recommends adding the app to the iPhone home screen, right-aligned and not clipped', async ({
+  page,
+}) => {
+  await page.goto('/#/about');
+  const line = page.getByText(
+    'באייפון מומלץ להוסיף את האפליקציה למסך הבית, כדי שהתוצאות יישמרו לאורך זמן.',
+    { exact: true },
+  );
+  await expect(line).toBeVisible();
+
+  const layout = await line.evaluate((el) => {
+    const box = el.getBoundingClientRect();
+    const parent = el.parentElement!.getBoundingClientRect();
+    return {
+      textAlign: getComputedStyle(el).textAlign,
+      direction: getComputedStyle(el).direction,
+      fits: el.scrollWidth <= el.clientWidth && box.right <= window.innerWidth && box.left >= 0,
+      rightAligned: Math.abs(box.right - parent.right) < 1,
+      pageScrollsSideways: document.documentElement.scrollWidth > window.innerWidth,
+    };
+  });
+  expect(layout.direction).toBe('rtl');
+  expect(['start', 'right']).toContain(layout.textAlign);
+  expect(layout.rightAligned).toBe(true);
+  expect(layout.fits).toBe(true);
+  expect(layout.pageScrollsSideways).toBe(false);
+});

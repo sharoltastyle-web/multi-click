@@ -6,6 +6,8 @@ export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
   reporter: 'list',
+  // Two production builds (versions A and B) served by e2e/support/staticServer.ts in pwa.spec.ts.
+  globalSetup: './e2e/support/buildVersions.ts',
   use: {
     baseURL: `http://localhost:${PORT}/`,
   },
@@ -18,6 +20,7 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium-mobile', use: { ...devices['Pixel 7'] } },
-    { name: 'webkit-mobile', use: { ...devices['iPhone 13'] } },
+    // Playwright supports service workers in Chromium only; PWA tests are skipped in WebKit.
+    { name: 'webkit-mobile', use: { ...devices['iPhone 13'] }, testIgnore: /pwa.spec.ts/ },
   ],
 });
