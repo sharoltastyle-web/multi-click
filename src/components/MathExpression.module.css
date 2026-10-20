@@ -1,0 +1,24 @@
+.expression {
+  display: inline-flex;
+  gap: 0.25em;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--font-size-math);
+  line-height: 1.1;
+}
+
+.factor {
+  color: var(--color-navy);
+}
+
+.times {
+  color: var(--color-cyan);
+}
+
+.question {
+  color: var(--color-coral);
+  -webkit-text-stroke: 1.5px var(--color-navy);
+  paint-order: stroke fill;
+}

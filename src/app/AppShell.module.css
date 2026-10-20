@@ -1,0 +1,12 @@
+.shell {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  min-height: 100dvh;
+}
+
+.main {
+  padding-inline: var(--space-2);
+  padding-block-start: var(--space-3);
+  /* Reserve room so the fixed bottom navigation never covers content */
+  padding-block-end: calc(var(--nav-height) + env(safe-area-inset-bottom) + var(--space-4));
+}

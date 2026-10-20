@@ -1,0 +1,49 @@
+/* Design tokens from spec/DESIGN.md (Style Guide). */
+:root {
+  /* Color palette */
+  --color-navy: #081b52;
+  --color-cyan: #13b9f2;
+  --color-sunshine: #ffe331;
+  --color-coral: #ff6849;
+  --color-lime: #b9f566;
+  --color-lilac: #cab8f6;
+  --color-cream: #fff9e7;
+  --color-white: #ffffff;
+
+  /* Derived tints (mixed from base colors, no new HEX values) */
+  --color-cyan-light: color-mix(in srgb, var(--color-cyan) 18%, var(--color-white));
+  --color-navy-muted: color-mix(in srgb, var(--color-navy) 55%, var(--color-white));
+  --color-disabled-surface: color-mix(in srgb, var(--color-navy) 10%, var(--color-white));
+  --color-disabled-text: color-mix(in srgb, var(--color-navy) 45%, var(--color-white));
+  --color-divider: color-mix(in srgb, var(--color-navy) 15%, var(--color-white));
+
+  /* Typography */
+  --font-display: 'Fredoka', 'Heebo', sans-serif;
+  --font-body: 'Heebo', sans-serif;
+  --font-size-display: 32px;
+  --font-size-heading: 24px;
+  --font-size-subheading: 20px;
+  --font-size-body: 18px;
+  --font-size-button: 20px;
+  --font-size-math: 40px;
+  --line-height-body: 1.5;
+
+  /* Spacing scale */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+
+  /* Shapes */
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --border-thin: 2px;
+  --border-thick: 3px;
+  --shadow-offset: 0 4px 0 var(--color-navy);
+  --focus-ring: 0 0 0 4px var(--color-cyan);
+
+  /* Layout */
+  --touch-min: 48px;
+  --content-max: 480px;
+  --nav-height: 72px;
+}

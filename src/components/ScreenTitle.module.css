@@ -1,0 +1,12 @@
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--font-size-display);
+  line-height: 1.3;
+  text-align: center;
+  color: var(--color-sunshine);
+  -webkit-text-stroke: 6px var(--color-navy);
+  paint-order: stroke fill;
+  text-shadow: 0 4px 0 var(--color-navy);
+  overflow-wrap: anywhere;
+}

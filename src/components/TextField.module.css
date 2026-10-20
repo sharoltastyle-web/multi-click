@@ -1,0 +1,26 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: var(--font-size-body);
+  text-align: start;
+}
+
+.input {
+  inline-size: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-thin) solid var(--color-navy);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-navy);
+  font-family: var(--font-body);
+  font-size: 20px;
+}
+
+.input:focus-visible {
+  box-shadow: var(--focus-ring);
+}
