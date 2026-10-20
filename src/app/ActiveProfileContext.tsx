@@ -1,23 +1,24 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
+import type { Profile } from '../domain/profile';
 
 interface ActiveProfileValue {
-  activeProfileId: string | null;
-  setActiveProfileId: (id: string | null) => void;
+  activeProfile: Profile | null;
+  selectProfile: (profile: Profile | null) => void;
 }
 
 const ActiveProfileContext = createContext<ActiveProfileValue | null>(null);
 
-/** Holds the active profile id in memory only; it is never persisted. */
+/** Holds the active profile in memory only; it is never persisted. */
 export function ActiveProfileProvider({
-  initialProfileId = null,
+  initialProfile = null,
   children,
 }: {
-  initialProfileId?: string | null;
+  initialProfile?: Profile | null;
   children: ReactNode;
 }) {
-  const [activeProfileId, setActiveProfileId] = useState<string | null>(initialProfileId);
+  const [activeProfile, selectProfile] = useState<Profile | null>(initialProfile);
   return (
-    <ActiveProfileContext.Provider value={{ activeProfileId, setActiveProfileId }}>
+    <ActiveProfileContext.Provider value={{ activeProfile, selectProfile }}>
       {children}
     </ActiveProfileContext.Provider>
   );

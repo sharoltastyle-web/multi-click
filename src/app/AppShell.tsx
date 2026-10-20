@@ -8,8 +8,8 @@ import { useHashRoute } from './useHashRoute';
 import styles from './AppShell.module.css';
 
 export function AppShell() {
-  const { activeProfileId } = useActiveProfile();
-  const route = useHashRoute(activeProfileId !== null);
+  const { activeProfile } = useActiveProfile();
+  const route = useHashRoute(activeProfile !== null);
   const mainRef = useRef<HTMLElement>(null);
   const isFirstRender = useRef(true);
 

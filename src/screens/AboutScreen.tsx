@@ -1,15 +1,25 @@
 import { ROUTE_HASH } from '../app/routes';
 import { ButtonLink } from '../components/Button';
-import { ScreenTitle } from '../components/ScreenTitle';
+import { MultiplicationTable } from '../components/MultiplicationTable';
+import { ScreenHeader } from '../components/ScreenHeader';
 import styles from './Screen.module.css';
 
-// The multiplication table and explanation text are added in Milestone 2.
 export function AboutScreen() {
   return (
     <div className={styles.screen}>
-      <header className={styles.header}>
-        <ScreenTitle>אודות כפל בכיף</ScreenTitle>
-      </header>
+      <ScreenHeader title="אודות כפל בכיף" />
+      <MultiplicationTable />
+      <div className={styles.text}>
+        <p>
+          תרגול לוח הכפל לילדים בגילאי <bdi>7–8</bdi>.
+        </p>
+        <p>בוחרים תרגול אקראי או כפולה.</p>
+        <p>מקלידים תשובה ולוחצים על בדיקה.</p>
+        <p>טעות? מקבלים רמז ומנסים שוב.</p>
+        <p>אחרי הצלחה ממשיכים לתרגיל הבא.</p>
+        <p>הגרף מציג הצלחה בניסיון הראשון.</p>
+        <p>התוצאות נשמרות במכשיר לכל פרופיל.</p>
+      </div>
       <ButtonLink href={ROUTE_HASH.home} variant="secondary">
         חזרה לבית
       </ButtonLink>

@@ -1,0 +1,64 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hero {
+  position: relative;
+  margin-inline: calc(-1 * var(--space-2));
+  margin-block-start: calc(-1 * var(--space-3));
+}
+
+.heroImage {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-end-start-radius: var(--radius-lg);
+  border-end-end-radius: var(--radius-lg);
+}
+
+/* Brand title sits on the sky at the top of the illustration */
+.heroTitle {
+  position: absolute;
+  inset-block-start: var(--space-1);
+  inset-inline: 0;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sectionTitle {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--font-size-subheading);
+  text-align: center;
+}
+
+.profiles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.notice {
+  padding: var(--space-2);
+  border: var(--border-thin) solid var(--color-navy);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-sunshine) 30%, var(--color-white));
+  font-weight: 700;
+  text-align: start;
+}
+
+.hint {
+  min-height: 1.5em;
+  margin-block-start: calc(-1 * var(--space-1));
+  font-weight: 700;
+  text-align: center;
+}

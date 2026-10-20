@@ -286,3 +286,8 @@ Pages מגיש קבצים בלבד. מספר משתמשים גדול אינו מ
 **הקשר:** מדיניות הגרסאות מחייבת גרסאות Stable מדויקות ו־Vite בטווח ה־peerDependencies של vite-plugin-pwa.
 **החלטה:** React 19.3.1, Vite 8.3.4 (vite-plugin-pwa 2.0.0 תומך ב־`^8.0.0`), TypeScript 7.0.2, Vitest 5.0.5, Playwright 1.64.1, Node.js 24.22.0 (קובץ `.nvmrc`). הגרסאות מדויקות ב־package.json, ללא `^`. בדיקות הדפדפן רצות על Production Build דרך `vite preview`, ב־Chromium (Pixel 7) וב־WebKit (iPhone 13).
 **השלכות:** שדרוג Major ייעשה רק בהחלטה מפורשת. `base` של Vite נשאר `/` עד הגדרת GitHub Pages ב־M6.
+
+### ADR-5: כיווץ האיורים ל־WebP בסקריפט ושמירת התוצרים ב־Repository
+**הקשר:** האיורים ב־`assets` הם PNG גדולים (עד 1.5MB). ADR-2 קבע שהם מכווצים בזמן הבנייה לפי הצורך.
+**החלטה:** הסקריפט `scripts/optimize-images.mjs` (`npm run images`, באמצעות החבילה `sharp` כ־Dev Dependency) ממיר את האיור הראשי ורקע הכותרת ל־WebP ברוחב 960px ואת האווטארים ל־256×256, לתיקייה `src/assets/images/`. הקבצים המכווצים נשמרים ב־Repository ומיובאים מהקוד, כך ש־Vite אורז אותם עם Content Hash. Database מקומי: Dexie 4.4.6; בדיקות Vitest משתמשות ב־fake-indexeddb.
+**השלכות:** ה־Build וה־CI אינם תלויים בהרצת sharp. החלפת איור: מחליפים את הקובץ ב־`assets` ומריצים `npm run images`. גודל הנכסים ירד מכ־2.7MB לכ־200KB.

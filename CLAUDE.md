@@ -59,3 +59,4 @@
 > Claude ממלא זאת ברגע שהאפליקציה יכולה לרוץ (בדרך כלל בסיום Milestone 1), ומעדכן אם משהו משתנה.
 - **הרצה (dev):** `npm run dev` (נפתח ב-http://localhost:5173)
 - **בדיקות (test):** `npm test` (יחידה), `npm run test:e2e` (דפדפן, על Production Build), `npm run check` (הכול: TypeScript, בדיקות, Build)
+- **כיווץ איורים:** `npm run images` (אחרי החלפת קובץ ב-`assets/`)

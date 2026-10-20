@@ -54,8 +54,9 @@ test('learn without an active profile redirects to home', async ({ page }) => {
   await navLink(page, 'לימוד').click();
   await expect(page).toHaveURL(/#\/home$/);
 
-  await page.getByRole('link', { name: 'ללימוד לוח הכפל' }).click();
+  await page.getByRole('button', { name: 'ללימוד לוח הכפל' }).click();
   await expect(page).toHaveURL(/#\/home$/);
+  await expect(page.getByText('יש לבחור פרופיל לפני התרגול')).toBeVisible();
 });
 
 test('nav labels are in Hebrew and ordered right-to-left: home, learn, about', async ({ page }) => {
