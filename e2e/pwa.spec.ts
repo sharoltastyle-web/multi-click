@@ -6,6 +6,7 @@ import { TestServer } from './support/staticServer';
 
 // Service workers are only supported by Playwright in Chromium; Safari is checked on a real iPhone.
 test.skip(({ browserName }) => browserName !== 'chromium', 'Service workers: Chromium only');
+test.use({ serviceWorkers: 'allow' });
 
 const READY = 'האפליקציה מוכנה לשימוש גם בלי אינטרנט';
 const NEEDS_CONNECTION = 'נדרש חיבור לאינטרנט להשלמת הטעינה הראשונית';

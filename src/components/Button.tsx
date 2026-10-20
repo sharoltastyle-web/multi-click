@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, Ref } from 'react';
 import styles from './Button.module.css';
 
 type Variant = 'primary' | 'secondary';
@@ -11,7 +11,7 @@ export function Button({
   variant = 'primary',
   className,
   ...rest
-}: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant }) {
+}: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant; ref?: Ref<HTMLButtonElement> }) {
   return <button type="button" className={classes(variant, className)} {...rest} />;
 }
 

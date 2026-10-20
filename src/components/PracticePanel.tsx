@@ -39,10 +39,20 @@ export function PracticePanel({
   const answerRef = useRef<HTMLInputElement>(null);
   const firstExerciseId = useRef(exercise.id);
 
+  const feedbackRef = useRef<HTMLDivElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+
   // A new exercise after "next" puts the cursor back in the answer field.
   useEffect(() => {
     if (exercise.id !== firstExerciseId.current) answerRef.current?.focus();
   }, [exercise.id]);
+
+  // On short screens the feedback (and "next") can fall below the fold: bring it into view.
+  useEffect(() => {
+    const target = phase === 'correct' ? nextRef.current : phase === 'incorrect' ? feedbackRef.current : null;
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    target?.scrollIntoView?.({ block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' });
+  }, [phase]);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -92,7 +102,7 @@ export function PracticePanel({
         </Button>
       </form>
 
-      <div className={styles.feedback} aria-live="polite">
+      <div ref={feedbackRef} className={styles.feedback} aria-live="polite">
         {phase === 'correct' && (
           <FeedbackMessage variant="success">
             <span>{SUCCESS_MESSAGE}</span>
@@ -115,7 +125,7 @@ export function PracticePanel({
       )}
 
       {solved && (
-        <Button variant="secondary" onClick={next}>
+        <Button ref={nextRef} variant="secondary" className={styles.next} onClick={next}>
           לתרגיל הבא
         </Button>
       )}

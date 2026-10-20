@@ -17,6 +17,8 @@ export default defineConfig({
   globalSetup: './e2e/support/buildVersions.ts',
   use: {
     baseURL: `http://localhost:${PORT}${BASE}`,
+    // The one-time "ready offline" message shifts the page mid-test; only pwa.spec.ts needs the worker.
+    serviceWorkers: 'block',
   },
   // Tests run against the production build, not the dev server.
   webServer: {

@@ -283,3 +283,22 @@ test('a Milestone 2 database is upgraded in the browser without losing profiles'
   );
   expect(version).toBe(20);
 });
+
+test('on a short screen the feedback and "next" scroll into view above the navigation', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 560 });
+  await startLearning(page);
+  const navTop = async () => (await page.getByRole('navigation').boundingBox())!.y;
+  const inView = async (box: { y: number; height: number } | null) =>
+    box !== null && box.y >= 0 && box.y + box.height <= (await navTop());
+
+  const p = await product(page);
+  await answerField(page).fill(String(p === 100 ? 99 : p + 1));
+  await answerField(page).press('Enter');
+  await expect(retry(page)).toBeVisible();
+  await expect.poll(async () => inView(await retry(page).boundingBox())).toBe(true);
+
+  await answerField(page).fill(String(p));
+  await answerField(page).press('Enter');
+  await expect(success(page)).toBeVisible();
+  await expect.poll(async () => inView(await nextButton(page).boundingBox())).toBe(true);
+});

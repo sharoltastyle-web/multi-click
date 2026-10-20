@@ -34,6 +34,12 @@
   margin-block-start: calc(-1 * var(--space-2));
 }
 
+/* Scrolled into view after a check; keep clear of the fixed bottom navigation */
+.feedback,
+.next {
+  scroll-margin-block-end: calc(var(--nav-height) + env(safe-area-inset-bottom) + var(--space-2));
+}
+
 .hint {
   font-weight: 400;
 }
